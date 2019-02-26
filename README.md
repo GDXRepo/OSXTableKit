@@ -1,4 +1,12 @@
 # OSXTableKit
+
+<p align="left">
+	<a href="https://developer.apple.com/swift"><img src="https://img.shields.io/badge/Swift_4.2-compatible-4BC51D.svg?style=flat" alt="Swift 4.2 compatible" /></a>
+	<a href="https://cocoapods.org/pods/osxtablekit"><img src="https://img.shields.io/badge/pod-0.1.1-blue.svg" alt="CocoaPods compatible" /></a>
+	<img src="https://img.shields.io/badge/platform-osx-lightgray.svg?style=flat" alt="Platform OS X" />
+	<a href="https://raw.githubusercontent.com/maxsokolov/tablekit/master/LICENSE"><img src="http://img.shields.io/badge/license-MIT-black.svg?style=flat" alt="License: MIT" /></a>
+</p>
+
 NSTableView wrapper for managing single-column tables. Supports macOS 10.10 or above.
 
 Inspired by https://github.com/maxsokolov/TableKit/
