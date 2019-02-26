@@ -1,8 +1,8 @@
 Pod::Spec.new do |s|
 	
   s.name             = "OSXTableKit"
-  s.version          = "0.1.0"
-  s.summary          = "NSTableView wrapper for managing iOS-like style tables on OS X and macOS."
+  s.version          = "0.1.1"
+  s.summary          = "NSTableView wrapper for managing iOS-like tables on OS X and macOS."
   s.homepage         = "https://github.com/GDXRepo/OSXTableKit"
   s.license          = { :type => "MIT", :file => "LICENSE" }
   s.author           = { "Georgiy Malyukov" => "elvorta.work@gmail.com" }
