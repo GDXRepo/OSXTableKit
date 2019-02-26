@@ -13,7 +13,6 @@ Pod::Spec.new do |s|
   s.swift_version = '4.2'
   s.requires_arc  = true
 
-  s.resources = ['OSXTableKit/Pod/Assets/*.xcassets', 'OSXTableKit/Pod/Assets/*.strings']
   s.source_files = 'OSXTableKit/Pod/Classes/**/*'
 
 end
