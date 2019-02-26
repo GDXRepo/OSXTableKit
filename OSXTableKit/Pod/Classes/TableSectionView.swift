@@ -7,15 +7,15 @@
 
 import AppKit
 
-class TableSectionView: NSTableCellView {
+open class TableSectionView: NSTableCellView {
     
-    var backgroundColor: NSColor = .clear {
+    public var backgroundColor: NSColor = .clear {
         didSet {
             layer!.backgroundColor = backgroundColor.cgColor
         }
     }
     
-    override init(frame frameRect: NSRect) {
+    public override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         wantsLayer = true
         make()
@@ -23,27 +23,27 @@ class TableSectionView: NSTableCellView {
         localize()
     }
     
-    required init?(coder decoder: NSCoder) {
+    public required init?(coder decoder: NSCoder) {
         fatalError()
     }
     
-    func make() {
+    open func make() {
         // empty
     }
     
-    override func updateConstraints() {
+    open override func updateConstraints() {
         super.updateConstraints()
     }
     
-    func bind() {
+    open func bind() {
         // empty
     }
     
-    func localize() {
+    open func localize() {
         // empty
     }
     
-    func reloadData() {
+    open func reloadData() {
         needsLayout = true
     }
     

@@ -7,28 +7,28 @@
 
 import Foundation
 
-func += (left: TableDirector, right: TableSection) {
+public func += (left: TableDirector, right: TableSection) {
     left.append(section: right)
 }
 
-func += (left: TableDirector, right: [TableSection]) {
+public func += (left: TableDirector, right: [TableSection]) {
     left.append(sections: right)
 }
 
 // --
-func += (left: TableDirector, right: Row) {
+public func += (left: TableDirector, right: Row) {
     left.append(sections: [TableSection(rows: [right])])
 }
 
-func += (left: TableDirector, right: [Row]) {
+public func += (left: TableDirector, right: [Row]) {
     left.append(sections: [TableSection(rows: right)])
 }
 
 // --
-func += (left: TableSection, right: Row) {
+public func += (left: TableSection, right: Row) {
     left.append(row: right)
 }
 
-func += (left: TableSection, right: [Row]) {
+public func += (left: TableSection, right: [Row]) {
     left.append(rows: right)
 }

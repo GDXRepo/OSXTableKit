@@ -7,14 +7,14 @@
 
 import AppKit
 
-class TableRowActionOptions<CellType: ConfigurableCell> where CellType: NSTableCellView {
+public class TableRowActionOptions<CellType: ConfigurableCell> where CellType: NSTableCellView {
     
     public let item: CellType.CellData
     public let cell: CellType?
     public let indexPath: IndexPath
     public let userInfo: [AnyHashable: Any]?
     
-    init(item: CellType.CellData, cell: CellType?, path: IndexPath, userInfo: [AnyHashable: Any]?) {
+    public init(item: CellType.CellData, cell: CellType?, path: IndexPath, userInfo: [AnyHashable: Any]?) {
         self.item = item
         self.cell = cell
         self.indexPath = path
@@ -39,9 +39,9 @@ private enum TableRowActionHandler<CellType: ConfigurableCell> where CellType: N
     
 }
 
-class TableRowAction<CellType: ConfigurableCell> where CellType: NSTableCellView {
+public class TableRowAction<CellType: ConfigurableCell> where CellType: NSTableCellView {
     
-    var id: String?
+    public var id: String?
     public let type: TableRowActionType
     private let handler: TableRowActionHandler<CellType>
     

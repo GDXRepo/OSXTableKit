@@ -7,7 +7,7 @@
 
 import AppKit
 
-enum TableRowActionType {
+public enum TableRowActionType {
     
     case click
 //    case clickDelete
@@ -26,7 +26,7 @@ enum TableRowActionType {
 //    case move
     case custom(String)
     
-    var key: String {
+    public var key: String {
         switch self {
         case .custom(let key):
             return key
@@ -38,7 +38,7 @@ enum TableRowActionType {
 }
 
 
-protocol ConfigurableCell {
+public protocol ConfigurableCell {
     
     associatedtype CellData
     
@@ -50,7 +50,7 @@ protocol ConfigurableCell {
 
 extension ConfigurableCell where Self: NSTableCellView {
     
-    static var reuseId: String {
+    public static var reuseId: String {
         return String(describing: self)
     }
     
@@ -62,7 +62,7 @@ public protocol RowConfigurable {
     
 }
 
-protocol Row: RowConfigurable, RowActionable {
+public protocol Row: RowConfigurable, RowActionable {
     
     var reuseId: String { get }
     
@@ -70,7 +70,7 @@ protocol Row: RowConfigurable, RowActionable {
     
 }
 
-protocol RowActionable {
+public protocol RowActionable {
     
     func invoke(action: TableRowActionType,
                 cell: NSTableCellView?,

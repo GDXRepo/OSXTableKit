@@ -7,11 +7,11 @@
 
 import AppKit
 
-class TableRow<T: ConfigurableCell>: Row where T: NSTableCellView {
+public class TableRow<T: ConfigurableCell>: Row where T: NSTableCellView {
     
     let item: T.CellData
     
-    var reuseId: String {
+    public var reuseId: String {
         return T.reuseId
     }
     
@@ -22,11 +22,11 @@ class TableRow<T: ConfigurableCell>: Row where T: NSTableCellView {
         actions?.forEach { on($0) }
     }
     
-    func invoke(action: TableRowActionType, cell: NSTableCellView?, path: IndexPath, userInfo: [AnyHashable: Any]? = nil) -> Any? {
+    public func invoke(action: TableRowActionType, cell: NSTableCellView?, path: IndexPath, userInfo: [AnyHashable: Any]? = nil) -> Any? {
         return actions[action.key]?.compactMap { $0.invokeActionOn(cell: cell, item: item, path: path, userInfo: userInfo) }.last
     }
     
-    func has(action: TableRowActionType) -> Bool {
+    public func has(action: TableRowActionType) -> Bool {
         return actions[action.key] != nil
     }
     
@@ -34,11 +34,11 @@ class TableRow<T: ConfigurableCell>: Row where T: NSTableCellView {
 
 extension TableRow {
     
-    func make() -> NSTableCellView {
+    public func make() -> NSTableCellView {
         return T.init()
     }
     
-    func configure(cell: NSTableCellView) {
+    public func configure(cell: NSTableCellView) {
         (cell as? T)?.configure(with: item)
     }
     
@@ -47,7 +47,7 @@ extension TableRow {
 extension TableRow {
     
     @discardableResult
-    func on(_ action: TableRowAction<T>) -> Self {
+    public func on(_ action: TableRowAction<T>) -> Self {
         if actions[action.type.key] == nil {
             actions[action.type.key] = [TableRowAction<T>]()
         }
@@ -56,7 +56,7 @@ extension TableRow {
     }
     
     @discardableResult
-    func on<V>(_ type: TableRowActionType, handler: @escaping (_ options: TableRowActionOptions<T>) -> V) -> Self {
+    public func on<V>(_ type: TableRowActionType, handler: @escaping (_ options: TableRowActionOptions<T>) -> V) -> Self {
         return on(TableRowAction<T>(type, handler: handler))
     }
     
@@ -65,11 +65,11 @@ extension TableRow {
 //        return on(TableRowAction<T>(.custom(key), handler: handler))
 //    }
     
-    func removeAllActions() {
+    public func removeAllActions() {
         actions.removeAll()
     }
     
-    func removeAction(forActionId actionId: String) {
+    public func removeAction(forActionId actionId: String) {
         for (key, value) in actions {
             if let actionIndex = value.index(where: { $0.id == actionId }) {
                 actions[key]?.remove(at: actionIndex)
