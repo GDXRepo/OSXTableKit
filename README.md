@@ -41,18 +41,18 @@ then run in Terminal the following command:
 ```
 $ pod install
 ```
-
-# Pros
+# Discussion
+## Pros
 * Displays single-column iOS-like style table view.
 * Supports non-fixed sections.
 * Strictly typed table sections, rows and actions. Completely safe table structure coding.
 * Automatic sections and rows height calculation.
 
-# What's not supported?
+## What's not supported?
 * Fixed sections.
 * Sections with empty headers. Workaround: create a view with height equal to 1 with background color equal to table view's background color.
 * Multiple columns like macOS native table views.
 * For now supports only `click`, `select` and `deselect` table actions. Other actions may be added later.
 
-# License
+## License
 MIT
