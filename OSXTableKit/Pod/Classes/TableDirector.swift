@@ -138,7 +138,7 @@ extension TableDirector {
         return rowsData.first { $0.path == indexPath }!
     }
     
-    private func _makeView(for row: Int) -> NSTableCellView {
+    private func _makeView(for row: Int) -> NSTableCellView? {
         // swiftlint:disable force_cast
         if let row = rowsData[row].object as? Row {
             let cell = row.make()
@@ -146,8 +146,8 @@ extension TableDirector {
             return cell
         }
         // otherwise return header's view
-        let view = (rowsData[row].object as! TableSection).headerView!
-        view.reloadData()
+        let view = (rowsData[row].object as! TableSection).headerView
+        view?.reloadData()
         return view
         // swiftlint:enable force_cast
     }
@@ -169,9 +169,11 @@ extension TableDirector: NSTableViewDataSource, NSTableViewDelegate {
     }
     
     public func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
-        let view = _makeView(for: row)
-        view.layout()
-        return view.fittingSize.height
+        if let view = _makeView(for: row) {
+            view.layout()
+            return view.fittingSize.height
+        }
+        return 0.01
     }
     
     public func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
