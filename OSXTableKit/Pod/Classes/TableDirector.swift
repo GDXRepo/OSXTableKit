@@ -15,6 +15,8 @@ public final class TableDirector: NSObject {
         return sections.isEmpty
     }
     
+    public var allowsSelection: Bool
+    
     public fileprivate(set) var sections = [TableSection]()
     public fileprivate(set) weak var tableView: NSTableView!
     public fileprivate(set) var selectedRow: Int?
@@ -22,9 +24,10 @@ public final class TableDirector: NSObject {
     private var initialSelectDone = false
     private var rowsData = [RowData]()
     
-    public init(with tableView: NSTableView, hideColumnHeaders: Bool = true) {
-        super.init()
+    public init(with tableView: NSTableView, allowsSelection: Bool = true, hideColumnHeaders: Bool = true) {
         self.tableView = tableView
+        self.allowsSelection = allowsSelection
+        super.init()
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableColumns.forEach {
@@ -177,6 +180,9 @@ extension TableDirector: NSTableViewDataSource, NSTableViewDelegate {
     }
     
     public func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
+        guard allowsSelection else {
+            return false
+        }
         guard (rowsData[row].object as? Row) != nil else {
             return false
         }
