@@ -11,6 +11,8 @@ open class TableCell<T>: NSTableCellView, ConfigurableCell {
     
     public typealias CellData = T
     
+    public var item: CellData?
+    
     public var backgroundColor: NSColor = .clear {
         didSet {
             layer!.backgroundColor = backgroundColor.cgColor
@@ -18,7 +20,8 @@ open class TableCell<T>: NSTableCellView, ConfigurableCell {
     }
     
     open func configure(with data: T) {
-        // empty
+        item = data
+        updateConstraints()
     }
     
     public override init(frame frameRect: NSRect) {
@@ -47,6 +50,14 @@ open class TableCell<T>: NSTableCellView, ConfigurableCell {
     
     open func localize() {
         // empty
+    }
+    
+}
+
+extension TableCell {
+    
+    func invokeCustomAction(key: String) {
+        TableCellAction(key: key, sender: self).invoke()
     }
     
 }

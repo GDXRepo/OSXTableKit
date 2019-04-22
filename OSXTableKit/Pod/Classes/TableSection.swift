@@ -12,10 +12,6 @@ public class TableSection: NSObject {
     public var headerView: TableSectionView?
     public fileprivate(set) var rows = [Row]()
     
-    public var numberOfRows: Int {
-        return rows.count
-    }
-    
     public var isEmpty: Bool {
         return rows.isEmpty
     }

@@ -9,17 +9,25 @@ import AppKit
 
 public final class TableDirector: NSObject {
     
-    private typealias RowData = (object: Any, path: IndexPath)
+    static let CellActionNotification = "TableKitNotificationsCellActionNotification"
+    
+    private typealias RowData = (object: Any, path: IndexPath, plainRow: Int)
     
     public var isEmpty: Bool {
         return sections.isEmpty
     }
     
     public var allowsSelection: Bool
+    public var selectedRow: Int? {
+        didSet {
+            if let row = selectedRow, oldValue != row {
+                tableView(tableView, shouldSelectRow: row)
+            }
+        }
+    }
     
     public fileprivate(set) var sections = [TableSection]()
     public fileprivate(set) weak var tableView: NSTableView!
-    public fileprivate(set) var selectedRow: Int?
     
     private var initialSelectDone = false
     private var rowsData = [RowData]()
@@ -39,6 +47,10 @@ public final class TableDirector: NSObject {
         if hideColumnHeaders {
             tableView.headerView = nil // hide columns if necessary
         }
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(_didReceiveAction),
+                                               name: NSNotification.Name(rawValue: TableDirector.CellActionNotification),
+                                               object: nil)
     }
     
     public func reload() {
@@ -122,16 +134,30 @@ extension TableDirector {
 
 extension TableDirector {
     
+    @objc private func _didReceiveAction(notification: NSNotification) {
+        guard
+            let action = notification.object as? TableCellAction,
+            let rowIndex = tableView?.row(for: action.cell) else {
+                return
+        }
+        if let path = rowsData.first(where: { $0.plainRow == rowIndex })?.path {
+            invoke(action: .custom(action.key), cell: action.cell, indexPath: path, userInfo: notification.userInfo)
+        }
+    }
+    
     private func _fillRowsData() {
         rowsData.removeAll()
         var i = 0
         var j = 0
+        var totalRows = -1
         for section in sections {
-            rowsData.append((section, IndexPath(item: j, section: i)))
+            totalRows += 1
+            rowsData.append((section, IndexPath(item: j, section: i), plainRow: totalRows))
             i += 1
             j = 0
             for item in section.rows {
-                rowsData.append((item, IndexPath(item: j, section: i)))
+                totalRows += 1
+                rowsData.append((item, IndexPath(item: j, section: i), plainRow: totalRows))
                 j += 1
             }
         }
@@ -142,7 +168,6 @@ extension TableDirector {
     }
     
     private func _makeView(for row: Int) -> NSTableCellView? {
-        // swiftlint:disable force_cast
         if let row = rowsData[row].object as? Row {
             let cell = row.make()
             row.configure(cell: cell)
@@ -152,7 +177,6 @@ extension TableDirector {
         let view = (rowsData[row].object as! TableSection).headerView
         view?.reloadData()
         return view
-        // swiftlint:enable force_cast
     }
     
     private func _section(for row: Int) -> TableSection? {
@@ -179,6 +203,7 @@ extension TableDirector: NSTableViewDataSource, NSTableViewDelegate {
         return 0.01
     }
     
+    @discardableResult
     public func tableView(_ tableView: NSTableView, shouldSelectRow row: Int) -> Bool {
         guard allowsSelection else {
             return false

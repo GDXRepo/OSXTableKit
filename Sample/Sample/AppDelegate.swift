@@ -31,7 +31,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             view.title = "Section \(i)"
             let section = TableSection(headerView: view)
             for subitem in item {
-                section += TableRow<SampleTableCell>(with: subitem).on(.click) {
+                section += TableRow<SampleTableCell>(with: subitem).on(.custom("MyAction")) {
                     print("clicked \($0.cell!)")
                 }
             }

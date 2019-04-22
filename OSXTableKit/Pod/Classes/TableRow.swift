@@ -15,19 +15,15 @@ public class TableRow<T: ConfigurableCell>: Row where T: NSTableCellView {
         return T.reuseId
     }
     
-    private lazy var actions = [String: [TableRowAction<T>]]()
+    open var cellType: AnyClass {
+        return T.self
+    }
+    
+    private var actions = [String: [TableRowAction<T>]]()
     
     public init(with item: T.CellData, actions: [TableRowAction<T>]? = nil) {
         self.item = item
         actions?.forEach { on($0) }
-    }
-    
-    public func invoke(action: TableRowActionType, cell: NSTableCellView?, path: IndexPath, userInfo: [AnyHashable: Any]? = nil) -> Any? {
-        return actions[action.key]?.compactMap { $0.invokeActionOn(cell: cell, item: item, path: path, userInfo: userInfo) }.last
-    }
-    
-    public func has(action: TableRowActionType) -> Bool {
-        return actions[action.key] != nil
     }
     
 }
@@ -46,6 +42,14 @@ extension TableRow {
 
 extension TableRow {
     
+    public func invoke(action: TableRowActionType, cell: NSTableCellView?, path: IndexPath, userInfo: [AnyHashable: Any]? = nil) -> Any? {
+        return actions[action.key]?.compactMap { $0.invokeActionOn(cell: cell, item: item, path: path, userInfo: userInfo) }.last
+    }
+    
+    public func has(action: TableRowActionType) -> Bool {
+        return actions[action.key] != nil
+    }
+    
     @discardableResult
     public func on(_ action: TableRowAction<T>) -> Self {
         if actions[action.type.key] == nil {
@@ -60,10 +64,10 @@ extension TableRow {
         return on(TableRowAction<T>(type, handler: handler))
     }
     
-//    @discardableResult
-//    func on(_ key: String, handler: @escaping (_ options: TableRowActionOptions<T>) -> ()) -> Self {
-//        return on(TableRowAction<T>(.custom(key), handler: handler))
-//    }
+    @discardableResult
+    func on(_ key: String, handler: @escaping (_ options: TableRowActionOptions<T>) -> ()) -> Self {
+        return on(TableRowAction<T>(.custom(key), handler: handler))
+    }
     
     public func removeAllActions() {
         actions.removeAll()

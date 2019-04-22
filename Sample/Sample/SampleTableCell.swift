@@ -12,6 +12,7 @@ import Cartography
 final class SampleTableCell: TableCell<String> {
     
     private var titleLabel: NSTextField!
+    private var button: NSButton!
     
     override func make() {
         super.make()
@@ -23,16 +24,22 @@ final class SampleTableCell: TableCell<String> {
         titleLabel.backgroundColor = .clear
         titleLabel.textColor = .black
         addSubview(titleLabel)
+        
+        button = NSButton(frame: .zero)
+        button.title = "Custom action"
+        button.target = self
+        button.action = #selector(_callAction)
+        addSubview(button)
     }
     
     override func updateConstraints() {
-        constrain(titleLabel) { (make) in
-            let superview = make.superview!
+        constrain(self, titleLabel, button) { view, title, button in
+            title.left == view.left + 10
+            title.top == view.top + 10
+            title.right == view.right - 10
+            title.bottom == view.bottom - 10
             
-            make.left == superview.left + 10
-            make.top == superview.top + 10
-            make.right == superview.right - 10
-            make.bottom == superview.bottom - 10
+            button.center == title.center
         }
         super.updateConstraints()
     }
@@ -40,6 +47,10 @@ final class SampleTableCell: TableCell<String> {
     override func configure(with data: String) {
         titleLabel.stringValue = data
         super.configure(with: data)
+    }
+    
+    @objc private func _callAction() {
+        invokeCustomAction(key: "MyAction")
     }
     
 }
