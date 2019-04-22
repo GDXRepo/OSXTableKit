@@ -7,7 +7,7 @@
 
 import AppKit
 
-open class TableCell<T>: NSTableCellView, ConfigurableCell {
+open class TableCell<T>: NSTableCellView, CellConfigurable {
     
     public typealias CellData = T
     

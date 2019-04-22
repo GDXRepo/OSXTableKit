@@ -63,6 +63,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C028BC0226E38370083E547 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				4C2E122F22258EBF001A04EE /* TableOperators.swift */,
+				4C2E123022258EBF001A04EE /* TableProtocols.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		4C028BC1226E38450083E547 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				4C2E123422258EBF001A04EE /* TableCell.swift */,
+				4C3DB21F226DD872001AA830 /* TableCellAction.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		4C028BC2226E384D0083E547 /* Row */ = {
+			isa = PBXGroup;
+			children = (
+				4C2E122E22258EBF001A04EE /* TableRow.swift */,
+				4C2E123322258EBF001A04EE /* TableRowAction.swift */,
+			);
+			path = Row;
+			sourceTree = "<group>";
+		};
+		4C028BC3226E38660083E547 /* Section */ = {
+			isa = PBXGroup;
+			children = (
+				4C2E123222258EBF001A04EE /* TableSection.swift */,
+				4C2E123122258EBF001A04EE /* TableSectionView.swift */,
+			);
+			path = Section;
+			sourceTree = "<group>";
+		};
 		4C2E121122258E8D001A04EE = {
 			isa = PBXGroup;
 			children = (
@@ -119,14 +155,10 @@
 		4C2E122D22258EBF001A04EE /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				4C2E122F22258EBF001A04EE /* TableOperators.swift */,
-				4C2E123022258EBF001A04EE /* TableProtocols.swift */,
-				4C3DB21F226DD872001AA830 /* TableCellAction.swift */,
-				4C2E123422258EBF001A04EE /* TableCell.swift */,
-				4C2E123322258EBF001A04EE /* TableRowAction.swift */,
-				4C2E122E22258EBF001A04EE /* TableRow.swift */,
-				4C2E123222258EBF001A04EE /* TableSection.swift */,
-				4C2E123122258EBF001A04EE /* TableSectionView.swift */,
+				4C028BC1226E38450083E547 /* Cell */,
+				4C028BC2226E384D0083E547 /* Row */,
+				4C028BC3226E38660083E547 /* Section */,
+				4C028BC0226E38370083E547 /* Utils */,
 				4C2E123522258EBF001A04EE /* TableDirector.swift */,
 			);
 			path = Classes;

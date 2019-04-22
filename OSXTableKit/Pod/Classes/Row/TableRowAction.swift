@@ -7,7 +7,7 @@
 
 import AppKit
 
-public class TableRowActionOptions<CellType: ConfigurableCell> where CellType: NSTableCellView {
+public class TableRowActionOptions<CellType: CellConfigurable> where CellType: NSTableCellView {
     
     public let item: CellType.CellData
     public let cell: CellType?
@@ -23,7 +23,7 @@ public class TableRowActionOptions<CellType: ConfigurableCell> where CellType: N
     
 }
 
-private enum TableRowActionHandler<CellType: ConfigurableCell> where CellType: NSTableCellView {
+private enum TableRowActionHandler<CellType: CellConfigurable> where CellType: NSTableCellView {
     
     case voidAction((TableRowActionOptions<CellType>) -> Void)
     case action((TableRowActionOptions<CellType>) -> Any?)
@@ -39,7 +39,7 @@ private enum TableRowActionHandler<CellType: ConfigurableCell> where CellType: N
     
 }
 
-public class TableRowAction<CellType: ConfigurableCell> where CellType: NSTableCellView {
+public class TableRowAction<CellType: CellConfigurable> where CellType: NSTableCellView {
     
     public var id: String?
     public let type: TableRowActionType

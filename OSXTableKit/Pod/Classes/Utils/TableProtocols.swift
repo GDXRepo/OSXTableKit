@@ -37,8 +37,7 @@ public enum TableRowActionType {
     
 }
 
-
-public protocol ConfigurableCell {
+public protocol CellConfigurable {
     
     associatedtype CellData
     
@@ -48,7 +47,7 @@ public protocol ConfigurableCell {
     
 }
 
-extension ConfigurableCell where Self: NSTableCellView {
+extension CellConfigurable where Self: NSTableCellView {
     
     public static var reuseId: String {
         return String(describing: self)
@@ -56,23 +55,12 @@ extension ConfigurableCell where Self: NSTableCellView {
     
 }
 
-public protocol RowConfigurable {
-    
-    func configure(cell: NSTableCellView)
-    
-}
-
-public protocol Row: RowConfigurable, RowActionable {
-    
+public protocol Row {
     
     var reuseId: String { get }
     
     func make() -> NSTableCellView
-    
-}
-
-public protocol RowActionable {
-    
+    func configure(cell: NSTableCellView)
     func invoke(action: TableRowActionType,
                 cell: NSTableCellView?,
                 path: IndexPath,

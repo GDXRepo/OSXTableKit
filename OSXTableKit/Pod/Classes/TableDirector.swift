@@ -48,7 +48,7 @@ public final class TableDirector: NSObject {
             tableView.headerView = nil // hide columns if necessary
         }
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(_didReceiveAction),
+                                               selector: #selector(_didReceiveAction(_:)),
                                                name: NSNotification.Name(rawValue: TableDirector.CellActionNotification),
                                                object: nil)
     }
@@ -134,7 +134,7 @@ extension TableDirector {
 
 extension TableDirector {
     
-    @objc private func _didReceiveAction(notification: NSNotification) {
+    @objc private func _didReceiveAction(_ notification: Notification) {
         guard
             let action = notification.object as? TableCellAction,
             let rowIndex = tableView?.row(for: action.cell) else {

@@ -7,7 +7,7 @@
 
 import AppKit
 
-public class TableRow<T: ConfigurableCell>: Row where T: NSTableCellView {
+public class TableRow<T: CellConfigurable>: Row where T: NSTableCellView {
     
     let item: T.CellData
     
@@ -73,7 +73,7 @@ extension TableRow {
         actions.removeAll()
     }
     
-    public func removeAction(forActionId actionId: String) {
+    public func removeAction(for actionId: String) {
         for (key, value) in actions {
             if let actionIndex = value.firstIndex(where: { $0.id == actionId }) {
                 actions[key]?.remove(at: actionIndex)
