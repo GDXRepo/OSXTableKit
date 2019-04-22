@@ -19,7 +19,7 @@ public enum TableRowActionType {
 //    case shouldHighlight
 //    case height
 //    case canEdit
-//    case configure
+    case configure
 //    case canDelete
 //    case canMove
 //    case canMoveTo
@@ -63,6 +63,7 @@ public protocol RowConfigurable {
 }
 
 public protocol Row: RowConfigurable, RowActionable {
+    
     
     var reuseId: String { get }
     

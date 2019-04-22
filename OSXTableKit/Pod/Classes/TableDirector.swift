@@ -9,7 +9,7 @@ import AppKit
 
 public final class TableDirector: NSObject {
     
-    static let CellActionNotification = "TableKitNotificationsCellActionNotification"
+    static let CellActionNotification = "OSXTableKit.TableCellActionNotification"
     
     private typealias RowData = (object: Any, path: IndexPath, plainRow: Int)
     
@@ -168,9 +168,10 @@ extension TableDirector {
     }
     
     private func _makeView(for row: Int) -> NSTableCellView? {
-        if let row = rowsData[row].object as? Row {
-            let cell = row.make()
-            row.configure(cell: cell)
+        if let rowObject = rowsData[row].object as? Row {
+            let cell = rowObject.make()
+            rowObject.configure(cell: cell)
+            invoke(action: .configure, cell: cell, indexPath: rowsData[row].path)
             return cell
         }
         // otherwise return header's view

@@ -32,7 +32,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             let section = TableSection(headerView: view)
             for subitem in item {
                 section += TableRow<SampleTableCell>(with: subitem).on(.custom("MyAction")) {
-                    print("clicked \($0.cell!)")
+                    print("clicked \($0.indexPath)")
                 }
             }
             director += section

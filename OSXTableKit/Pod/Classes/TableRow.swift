@@ -75,7 +75,7 @@ extension TableRow {
     
     public func removeAction(forActionId actionId: String) {
         for (key, value) in actions {
-            if let actionIndex = value.index(where: { $0.id == actionId }) {
+            if let actionIndex = value.firstIndex(where: { $0.id == actionId }) {
                 actions[key]?.remove(at: actionIndex)
             }
         }
