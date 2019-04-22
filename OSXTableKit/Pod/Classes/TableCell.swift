@@ -56,7 +56,7 @@ open class TableCell<T>: NSTableCellView, ConfigurableCell {
 
 extension TableCell {
     
-    func invokeCustomAction(key: String) {
+    public func invokeCustomAction(key: String) {
         TableCellAction(key: key, sender: self).invoke()
     }
     
